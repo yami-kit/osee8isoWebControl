@@ -1,0 +1,10 @@
+node_modules/
+build/
+.gradle/
+.idea/
+*.o
+*.elf
+*.map
+local.properties
+littlefs.bin
+esp8266-firmware.bin

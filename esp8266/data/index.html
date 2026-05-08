@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0a">
+<title>OSEE</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="header">
+  <div class="h-left">
+    <div id="connDot" class="dot off"></div>
+    <input id="inputIp" type="text" class="h-input" placeholder="导播台IP">
+    <button id="btnConnect" class="h-btn">连接</button>
+  </div>
+  <div class="h-center"><span id="deviceName" class="dev-name">OSEE</span></div>
+  <div class="h-right">
+    <div class="str-ind"><div id="sd0" class="sd off"></div><button class="lb" data-g="0">L1</button></div>
+    <div class="str-ind"><div id="sd1" class="sd off"></div><button class="lb" data-g="1">L2</button></div>
+    <div class="str-ind"><div id="sd2" class="sd off"></div><button class="lb" data-g="2">L3</button></div>
+    <button id="btnSet" class="ib">&#9881;</button>
+  </div>
+</header>
+<main id="main">
+  <div class="layout">
+    <div class="bus-col">
+      <div class="bus-label pvw-l">PVW</div>
+      <div class="src-grid" id="pvwB"></div>
+    </div>
+    <div class="cut-col">
+      <button class="cut-btn" data-cmd="cutTransition">CUT</button>
+      <div class="rec-area">
+        <button class="rb rec-b" data-cmd="recordStart">REC</button>
+        <button class="rb iso-b" data-cmd="recordStartISO">ISO</button>
+        <button class="rb stop-b" data-cmd="recordStop">&#9632;</button>
+      </div>
+      <div class="rec-info">
+        <span id="recSt" class="rtag">待机</span>
+        <span id="recDur" class="rtime"></span>
+      </div>
+    </div>
+    <div class="bus-col">
+      <div class="bus-label pgm-l">PGM</div>
+      <div class="src-grid" id="pgmB"></div>
+    </div>
+  </div>
+</main>
+<div id="setP" class="sp">
+  <div class="sp-h"><button id="btnSC" class="ib">&#10005;</button><span>推流设置</span></div>
+  <div class="sp-b">
+    <div class="sg"><div class="sg-h"><span class="sg-t">推流 1</span><label class="sw"><input type="checkbox" class="se" data-g="0"><span class="st"></span></label></div><input type="text" class="fi su" data-g="0" placeholder="RTMP URL"><input type="text" class="fi sk" data-g="0" placeholder="Stream Key"><div class="fr"><button class="btn sb ss" data-g="0">保存</button><button class="btn sb sl" data-g="0">GO LIVE</button></div></div>
+    <div class="sg"><div class="sg-h"><span class="sg-t">推流 2</span><label class="sw"><input type="checkbox" class="se" data-g="1"><span class="st"></span></label></div><input type="text" class="fi su" data-g="1" placeholder="RTMP URL"><input type="text" class="fi sk" data-g="1" placeholder="Stream Key"><div class="fr"><button class="btn sb ss" data-g="1">保存</button><button class="btn sb sl" data-g="1">GO LIVE</button></div></div>
+    <div class="sg"><div class="sg-h"><span class="sg-t">推流 3</span><label class="sw"><input type="checkbox" class="se" data-g="2"><span class="st"></span></label></div><input type="text" class="fi su" data-g="2" placeholder="RTMP URL"><input type="text" class="fi sk" data-g="2" placeholder="Stream Key"><div class="fr"><button class="btn sb ss" data-g="2">保存</button><button class="btn sb sl" data-g="2">GO LIVE</button></div></div>
+  </div>
+</div>
+<div id="setO" class="so"></div>
+<script src="app.js"></script>
+</body>
+</html>

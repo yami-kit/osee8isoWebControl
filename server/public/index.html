@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>OSEE 导播台</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="header">
+    <div class="header-left">
+      <div id="connDot" class="dot disconnected"></div>
+      <input id="inputIp" type="text" class="header-input" placeholder="IP地址" value="">
+      <button id="btnConnect" class="header-btn">连接</button>
+    </div>
+    <div class="header-center">
+      <span id="deviceName" class="device-name">OSEE 导播台</span>
+    </div>
+    <div class="header-right">
+      <div class="stream-indicators">
+        <div class="stream-ind">
+          <div id="streamDot0" class="stream-dot off"></div>
+          <button class="live-btn" data-group="0">L1</button>
+        </div>
+        <div class="stream-ind">
+          <div id="streamDot1" class="stream-dot off"></div>
+          <button class="live-btn" data-group="1">L2</button>
+        </div>
+        <div class="stream-ind">
+          <div id="streamDot2" class="stream-dot off"></div>
+          <button class="live-btn" data-group="2">L3</button>
+        </div>
+      </div>
+      <button id="btnSettings" class="icon-btn" title="设置">⚙</button>
+      <button id="btnLog" class="icon-btn" title="日志">☰</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- PVW(左) / PGM(右) -->
+    <section class="panel sources-panel">
+      <div class="bus-row">
+        <div class="bus-block">
+          <div class="bus-label pvw-label">PVW</div>
+          <div class="source-grid" id="pvwButtons"></div>
+        </div>
+        <div class="bus-block">
+          <div class="bus-label pgm-label">PGM</div>
+          <div class="source-grid" id="pgmButtons"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 转场 -->
+    <section class="panel transition-panel">
+      <div class="trans-row">
+        <div class="trans-group">
+          <div class="group-label">转场样式</div>
+          <div class="btn-row">
+            <button class="btn trans-btn" data-cmd="transitionStyleMix">MIX</button>
+            <button class="btn trans-btn" data-cmd="transitionStyleDip">DIP</button>
+            <button class="btn trans-btn" data-cmd="transitionStyleWipe">WIPE</button>
+          </div>
+        </div>
+        <div class="trans-group">
+          <div class="group-label">Next</div>
+          <div class="btn-row">
+            <button class="btn next-btn active" data-cmd="nextTransitionBGKey">BG+KEY</button>
+            <button class="btn next-btn" data-cmd="nextTransitionBG">BG</button>
+          </div>
+        </div>
+        <div class="trans-group">
+          <div class="group-label">On Air</div>
+          <div class="btn-row">
+            <button class="btn air-btn toggle-btn" data-on="keyOnAir0On" data-off="keyOnAir0Off">KEY</button>
+            <button class="btn air-btn toggle-btn" data-on="dsk1OnAirOn" data-off="dsk1OnAirOff">DSK1</button>
+            <button class="btn air-btn toggle-btn" data-on="dsk2OnAirOn" data-off="dsk2OnAirOff">DSK2</button>
+          </div>
+        </div>
+        <div class="trans-group trans-exec">
+          <div class="group-label">执行</div>
+          <div class="btn-row">
+            <button class="btn exec-btn cut-btn" data-cmd="cutTransition">CUT</button>
+            <button class="btn exec-btn auto-btn" data-cmd="autoTransition">AUTO</button>
+            <button class="btn exec-btn ftb-btn" data-cmd="ftb">FTB</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 录制 + 播放器 -->
+    <section class="panel bottom-panel">
+      <div class="group-card">
+        <div class="group-label">录制</div>
+        <div class="btn-row">
+          <button class="btn rec-btn" data-cmd="recordStart">REC</button>
+          <button class="btn rec-iso-btn" data-cmd="recordStartISO">ISO</button>
+          <button class="btn stop-btn" data-cmd="recordStop">■</button>
+        </div>
+        <div class="status-line">
+          <span id="recStatus" class="status-tag">待机</span>
+          <span id="recDuration" class="status-time"></span>
+        </div>
+      </div>
+
+      <div class="group-card player-card">
+        <div class="group-label">媒体播放器</div>
+        <div class="player-merged">
+          <div class="player-col">
+            <span class="player-tag">P1</span>
+            <span id="playStatus0" class="status-tag">停止</span>
+            <button class="btn ctrl-btn" data-cmd="playPrev0" title="上一个">⏮</button>
+            <button class="btn ctrl-btn play-toggle" data-player="0" title="播放/暂停">▶</button>
+            <button class="btn ctrl-btn" data-cmd="playNext0" title="下一个">⏭</button>
+          </div>
+          <div class="player-col">
+            <span class="player-tag">P2</span>
+            <span id="playStatus1" class="status-tag">停止</span>
+            <button class="btn ctrl-btn" data-cmd="playPrev1" title="上一个">⏮</button>
+            <button class="btn ctrl-btn play-toggle" data-player="1" title="播放/暂停">▶</button>
+            <button class="btn ctrl-btn" data-cmd="playNext1" title="下一个">⏭</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 设置面板 -->
+  <div id="settingsPanel" class="settings-panel">
+    <div class="settings-header">
+      <button id="btnSettingsClose" class="icon-btn">✕</button>
+      <span>设置</span>
+    </div>
+    <div class="settings-body">
+      <div class="settings-section">
+        <div class="section-title">推流设置</div>
+        <div class="stream-group">
+          <div class="stream-header">
+            <span class="stream-tag">推流 1</span>
+            <label class="switch-label"><input type="checkbox" class="stream-enable" data-group="0"><span class="switch-track"></span></label>
+          </div>
+          <input type="text" class="form-input stream-url" data-group="0" placeholder="RTMP URL">
+          <input type="text" class="form-input stream-key" data-group="0" placeholder="Stream Key">
+          <div class="form-row">
+            <button class="btn small-btn stream-save" data-group="0">保存</button>
+            <button class="btn small-btn live-btn-settings" data-group="0">GO LIVE</button>
+          </div>
+        </div>
+        <div class="stream-group">
+          <div class="stream-header">
+            <span class="stream-tag">推流 2</span>
+            <label class="switch-label"><input type="checkbox" class="stream-enable" data-group="1"><span class="switch-track"></span></label>
+          </div>
+          <input type="text" class="form-input stream-url" data-group="1" placeholder="RTMP URL">
+          <input type="text" class="form-input stream-key" data-group="1" placeholder="Stream Key">
+          <div class="form-row">
+            <button class="btn small-btn stream-save" data-group="1">保存</button>
+            <button class="btn small-btn live-btn-settings" data-group="1">GO LIVE</button>
+          </div>
+        </div>
+        <div class="stream-group">
+          <div class="stream-header">
+            <span class="stream-tag">推流 3</span>
+            <label class="switch-label"><input type="checkbox" class="stream-enable" data-group="2"><span class="switch-track"></span></label>
+          </div>
+          <input type="text" class="form-input stream-url" data-group="2" placeholder="RTMP URL">
+          <input type="text" class="form-input stream-key" data-group="2" placeholder="Stream Key">
+          <div class="form-row">
+            <button class="btn small-btn stream-save" data-group="2">保存</button>
+            <button class="btn small-btn live-btn-settings" data-group="2">GO LIVE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="settingsOverlay" class="settings-overlay"></div>
+
+  <!-- 日志面板 -->
+  <div id="logPanel" class="log-panel">
+    <div class="log-header">
+      <span>通信日志</span>
+      <div class="log-actions">
+        <button id="btnLogClear" class="icon-btn-sm">清空</button>
+        <button id="btnLogClose" class="icon-btn-sm">✕</button>
+      </div>
+    </div>
+    <div id="logContent" class="log-content"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
