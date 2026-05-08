@@ -87,7 +87,7 @@ OSEE GoStream Duet 8 ISO 导播台的三端 Web 控制系统，支持 PC 浏览�
 └── release/                 # 预编译发布文件
     ├── osee-switcher-server.zip  # 服务器端 (解压后 npm install 即可运行)
     ├── esp8266-firmware.zip      # ESP8266 固件 (含固件bin + 文件系统bin)
-    └── 导播台-release.apk        # Android APK (直接安装)
+    └── osee-switcher-release.apk        # Android APK (直接安装)
 ```
 
 ***
@@ -131,7 +131,7 @@ node server.js
 
 #### 方式一：直接安装 APK（推荐）
 
-从 [Release](../../releases) 下载 `导播台-release.apk`，安装到 Android 手机即可使用。
+从 [Release](../../releases) 下载 `osee-switcher-release.apk`，安装到 Android 手机即可使用。
 
 打开 App 后输入导播台 IP 地址，App 通过 Capacitor TCP 插件直接连接设备，无需中间服务器。
 
