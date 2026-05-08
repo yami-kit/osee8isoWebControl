@@ -3,6 +3,7 @@
 OSEE GoStream Duet 8 ISO 导播台的三端 Web 控制系统，支持 PC 浏览器、Android 手机、ESP8266 三种方式控制导播台。
 
 > ⚠️ **兼容性说明**: 本项目目前仅适配 **OSEE GoStream Duet 8 ISO** 导播台，导播台固件版本：GoStream Duet 8 ISO Firmware v2.1.0，其他 OSEE 型号未测试，协议可能存在差异，不保证兼容。
+> 所有终端请在横屏下进行使用。
 
 ## 功能特性
 
